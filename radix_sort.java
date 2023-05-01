@@ -1,66 +1,46 @@
-// Radix Sort in Java Programming
+// Radix Sort
+// Purpose:
+// Programmers:
 
-import java.util.Arrays;
+import java.util.LinkedList;
 
-class radix_sort {
+public class radix_sort {
 
-    // Using counting sort to sort the elements in the basis of significant places
-    void countingSort(int array[], int size, int place) {
-        int[] output = new int[size + 1];
-        int max = array[0];
-        for (int i = 1; i < size; i++) {
-            if (array[i] > max)
-                max = array[i];
+    // Method to get the maximum value of the array
+    static int GetMax(double[] arr) {
+        double max_value = arr[0];
+        int max_index = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] > max_value) {
+                max_value = arr[i];
+                max_index = i;
+            }
         }
-        int[] count = new int[max + 1];
+        return max_index;
+    }
 
-        for (int i = 0; i < max; ++i)
-            count[i] = 0;
-
-        // Calculate count of elements
-        for (int i = 0; i < size; i++)
-            count[(array[i] / place) % 10]++;
-
-        // Calculate cumulative count
-        for (int i = 1; i < 10; i++)
-            count[i] += count[i - 1];
-
-        // Place the elements in sorted order
-        for (int i = size - 1; i >= 0; i--) {
-            output[count[(array[i] / place) % 10] - 1] = array[i];
-            count[(array[i] / place) % 10]--;
+    // Get the number of digits of a number
+    static int GetDigits(double number) {
+        int i = 1;
+        if (number < 10)
+            i = 1;
+        else {
+            while (number > Math.pow(10, i))
+                i++;
         }
-
-        for (int i = 0; i < size; i++)
-            array[i] = output[i];
+        return i;
     }
 
-    // Function to get the largest element from an array
-    int getMax(int array[], int n) {
-        int max = array[0];
-        for (int i = 1; i < n; i++)
-            if (array[i] > max)
-                max = array[i];
-        return max;
+    public static void RadixSort(double[] arr) {
+
+        // Declaring 2 fixed-sized arrays (size 10) for 10 decimal places.
+        double[] array1 = new double[10];
+        double[] array2 = new double[10];
+
+        int MaxIndex = GetMax(arr); // Get index value of maximum value in the array
+        double MaxValue = arr[MaxIndex]; // Declare maximum value in the array
+        int num = GetDigits(MaxValue); // Get the number of digits in the maximum value
+
     }
 
-    // Main function to implement radix sort
-    void radixSort(int array[], int size) {
-        // Get maximum element
-        int max = getMax(array, size);
-
-        // Apply counting sort to sort elements based on place value.
-        for (int place = 1; max / place > 0; place *= 10)
-            countingSort(array, size, place);
-    }
-
-    // Driver code
-    public static void main(String args[]) {
-        int[] data = { 132, 432, 654, 555, 1, 45, 788 };
-        int size = data.length;
-        radix_sort rs = new radix_sort();
-        rs.radixSort(data, size);
-        System.out.println("Sorted Array in Ascending Order: ");
-        System.out.println(Arrays.toString(data));
-    }
 }
