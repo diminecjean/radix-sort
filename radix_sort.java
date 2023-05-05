@@ -1,8 +1,9 @@
-// Radix Sort
-// Purpose:
-// Programmers:
+// Radix Sort - using 2 arrays, based on bucket sort
+// Purpose: Sort a sequence of decimal numbers of integer datatype, in the form of an array
+// Programmers: 
 
 import java.util.LinkedList;
+import java.util.*;
 
 public class radix_sort {
 
@@ -19,7 +20,7 @@ public class radix_sort {
         return max_index;
     }
 
-    // Get the number of digits of a number
+    // Method to get the number of digits of a number
     static int GetDigits(int number) {
         int i = 1;
         if (number < 10)
@@ -33,9 +34,11 @@ public class radix_sort {
 
     public static void RadixSort(int[] arr) {
 
-        // Declaring 2 fixed-sized linked lists (size 10) for 10 decimal places.
-        LinkedList<Integer>[] array1 = new LinkedList[10];
-        LinkedList<Integer>[] array2 = new LinkedList[10];
+        // Declaring 2 fixed-sized linked lists (size 10) and a
+        // placeholder linked list (temp) for 10 decimal places.
+        LinkedList<Integer>[] source = new LinkedList[10]; // linked list 1
+        LinkedList<Integer>[] destination = new LinkedList[10]; // linked list 2
+        LinkedList<Integer>[] temp = new LinkedList[10]; // placeholder
 
         int size = arr.length;
 
@@ -46,31 +49,54 @@ public class radix_sort {
         // This is to determine the number of loops needed for the sort
         int num_loop = GetDigits(MaxValue);
 
-        // Creating buckets for each array index to store pointers
+        // Creating buckets for each linked list to store pointers
         for (int i = 0; i < 10; i++) {
-            array1[i] = new LinkedList<Integer>();
-            array2[i] = new LinkedList<Integer>();
+            source[i] = new LinkedList<Integer>();
+            destination[i] = new LinkedList<Integer>();
+            temp[i] = new LinkedList<Integer>();
+        }
+
+        // Append the array elements into their respective buckets in the source
+        // linked list based on the digit value of ones place value
+        for (int j = 0; j < size; j++) {
+            int digit = (int) (arr[j] % 10);
+            source[digit].add(arr[j]);
         }
 
         // Number of iterations of the outer loop is based on the
         // number of digits of the maximum value in the input array
-        for (int i = 0; i < num_loop; i++) {
+        // i starts from 1 as the sequence has already been sorted once
+        // for the ones place value
+        for (int i = 1; i < num_loop; i++) {
             for (int j = 0; j < size; j++) {
-                int digit = (int) (arr[j] / Math.pow(10, i)) % 10;
-                if (j % 2 == 0)
-                    array1[digit].add(arr[j]);
-
-            }
-            int x = 0, y = 0;
-            // write back to the array after each pass
-            while (x < 10) {
-                while (!array1[x].isEmpty()) {
-                    arr[y] = array1[x].remove();
-                    y++;
+                int x = 0;
+                // x represents the number of buckets
+                while (x < 10) {
+                    // Each bucket may have 0 to n number of linked list
+                    while (!source[x].isEmpty()) {
+                        int num = source[x].remove();
+                        int digit = (int) (num / Math.pow(10, i)) % 10;
+                        destination[digit].add(num);
+                    }
+                    x++;
                 }
-                x++;
             }
+            // Switch the arrays after each round of sorting
+            temp = source;
+            source = destination;
+            destination = temp;
         }
+
+        int x = 0, y = 0;
+        // Write back the sorted elements into the array
+        while (x < 10) {
+            while (!source[x].isEmpty()) {
+                arr[y] = source[x].remove();
+                y++;
+            }
+            x++;
+        }
+
     }
 
     // a utility function to print the sorted array
@@ -81,7 +107,21 @@ public class radix_sort {
     }
 
     public static void main(String[] args) {
-        int[] arr = { 573, 25, 415, 12, 161, 6 };
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Number of integers to sort: ");
+        int size = sc.nextInt();
+        int[] arr = new int[size];
+
+        for (int i = 0; i < size; i++) {
+            System.out.print("Integer " + (i + 1) + ": ");
+            arr[i] = sc.nextInt();
+        }
+
+        // Clear the console
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        // int[] arr = { 573, 25, 415, 12, 161, 6 };
 
         // function call
         RadixSort(arr);
