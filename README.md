@@ -1,4 +1,5 @@
 # Radix Sort
+*Note: only sort for positive values, not considering negative values*
 
 ## Part 1: Sorting Algorithms
 Convert the radix sort algorithm that is described in the Appendix section to Java program. Note: You must implement exactly like what is described.
