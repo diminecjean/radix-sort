@@ -8,6 +8,8 @@ import java.util.*;
 public class radix_sort_fp {
 
     // Method to convert the floating point numbers into integers
+    // Radix depending on the longest float (that has most number of 小数点 place
+    // values)
 
     // Method to get the number of digits of a number
     static int GetDigits(int number) {
