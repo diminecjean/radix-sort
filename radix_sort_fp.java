@@ -7,18 +7,7 @@ import java.util.*;
 
 public class radix_sort_fp {
 
-    // Method to get the maximum value of the array
-    static int GetMax(int[] arr) {
-        int max_value = arr[0];
-        int max_index = 0;
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] > max_value) {
-                max_value = arr[i];
-                max_index = i;
-            }
-        }
-        return max_index;
-    }
+    // Method to convert the floating point numbers into integers
 
     // Method to get the number of digits of a number
     static int GetDigits(int number) {
@@ -32,7 +21,24 @@ public class radix_sort_fp {
         return i;
     }
 
-    public static void RadixSort(int[] arr) {
+    // Method to get the maximum value of the array
+    // Note for weien: can be used after converting into int
+    static int GetMax(int[] arr) {
+        int max_value = arr[0];
+        int max_index = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] > max_value) {
+                max_value = arr[i];
+                max_index = i;
+            }
+        }
+        return max_index;
+    }
+
+    public static void RadixSort(float[] arr) {
+
+        // Convert the floating point array into integer array
+        // using the method
 
         // Declaring 2 fixed-sized linked lists (size 10) and a
         // placeholder linked list (temp) for 10 decimal places.
@@ -100,7 +106,7 @@ public class radix_sort_fp {
     }
 
     // a utility function to print the sorted array
-    static void printArr(int[] arr) {
+    static void printArr(float[] arr) {
         for (int i = 0; i < arr.length; i++)
             System.out.print(arr[i] + " ");
         System.out.println();
@@ -111,11 +117,11 @@ public class radix_sort_fp {
 
         System.out.print("Number of integers to sort: ");
         int size = sc.nextInt();
-        int[] arr = new int[size];
+        float[] arr = new float[size];
 
         for (int i = 0; i < size; i++) {
             System.out.print("Integer " + (i + 1) + ": ");
-            arr[i] = sc.nextInt();
+            arr[i] = sc.nextFloat();
         }
 
         // Clear the console
