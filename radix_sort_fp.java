@@ -58,7 +58,6 @@ public class radix_sort_fp {
     }
 
     // Method to get the maximum value of the array
-    // Note for weien: can be used after converting into int
     static int GetMax(int[] arr) {
         int max_value = arr[0];
         int max_index = 0;
