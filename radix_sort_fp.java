@@ -3,13 +3,48 @@
 // Programmers: 
 
 import java.util.LinkedList;
+import java.lang.FdLibm.Pow;
 import java.util.*;
 
 public class radix_sort_fp {
 
+    // Get the number of decimal places of the float with
+    // most number of decimal places
+    static int NumberOfDP(float[] arr) {
+        int max_dp = 0;
+        for (int i = 0; i < arr.length; i++) {
+            String text = Float.toString(Math.abs(arr[i]));
+            int integer_places = text.indexOf('.');
+            int decimal_places = text.length() - integer_places - 1;
+            if (decimal_places > max_dp)
+                max_dp = decimal_places;
+        }
+        return max_dp;
+    }
+
     // Method to convert the floating point numbers into integers
-    // Radix depending on the longest float (that has most number of 小数点 place
-    // values)
+    // Radix = max_dp
+    static int[] FloatToInt(float[] arr, int max_dp) {
+        int[] int_arr = new int[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            int_arr[i] = (int) (arr[i] * (float) (Math.pow(10, max_dp)));
+            System.out.print(int_arr[i] + " ");
+        }
+
+        return int_arr;
+    }
+
+    // Method to convert the integers into floating point numbers
+    // Radix = max_dp
+    static float[] IntToFloat(int[] int_arr, int max_dp) {
+        float[] arr = new float[int_arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = (float) (int_arr[i] / (Math.pow(10, max_dp)));
+            System.out.print(arr[i] + " ");
+        }
+
+        return arr;
+    }
 
     // Method to get the number of digits of a number
     static int GetDigits(int number) {
@@ -39,8 +74,13 @@ public class radix_sort_fp {
 
     public static void RadixSort(float[] arr) {
 
+        int DPNum = NumberOfDP(arr); // Get number of decimal places of longest floating point value in array
+
         // Convert the floating point array into integer array
         // using the method
+
+        int[] int_arr = new int[arr.length];
+        int_arr = FloatToInt(arr, DPNum);
 
         // Declaring 2 fixed-sized linked lists (size 10) and a
         // placeholder linked list (temp) for 10 decimal places.
@@ -50,8 +90,8 @@ public class radix_sort_fp {
 
         int size = arr.length;
 
-        int MaxIndex = GetMax(arr); // Get index value of maximum value in the array
-        int MaxValue = arr[MaxIndex]; // Declare maximum value in the array
+        int MaxIndex = GetMax(int_arr); // Get index value of maximum value in the array
+        int MaxValue = int_arr[MaxIndex]; // Declare maximum value in the array
 
         // Get the number of digits in the maximum value
         // This is to determine the number of loops needed for the sort
@@ -67,8 +107,8 @@ public class radix_sort_fp {
         // Append the array elements into their respective buckets in the source
         // linked list based on the digit value of ones place value
         for (int j = 0; j < size; j++) {
-            int digit = (int) (arr[j] % 10);
-            source[digit].add(arr[j]);
+            int digit = (int) (int_arr[j] % 10);
+            source[digit].add(int_arr[j]);
         }
 
         // Number of iterations of the outer loop is based on the
@@ -99,11 +139,13 @@ public class radix_sort_fp {
         // Write back the sorted elements into the array
         while (x < 10) {
             while (!source[x].isEmpty()) {
-                arr[y] = source[x].remove();
+                int_arr[y] = source[x].remove();
                 y++;
             }
             x++;
         }
+
+        arr = IntToFloat(int_arr, DPNum);
 
     }
 
@@ -117,12 +159,12 @@ public class radix_sort_fp {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        System.out.print("Number of integers to sort: ");
+        System.out.print("Number of floating point numbers to sort: ");
         int size = sc.nextInt();
         float[] arr = new float[size];
 
         for (int i = 0; i < size; i++) {
-            System.out.print("Integer " + (i + 1) + ": ");
+            System.out.print("Number " + (i + 1) + ": ");
             arr[i] = sc.nextFloat();
         }
 
