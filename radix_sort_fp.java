@@ -3,7 +3,6 @@
 // Programmers: 
 
 import java.util.LinkedList;
-import java.lang.FdLibm.Pow;
 import java.util.*;
 
 public class radix_sort_fp {
@@ -28,7 +27,7 @@ public class radix_sort_fp {
         int[] int_arr = new int[arr.length];
         for (int i = 0; i < arr.length; i++) {
             int_arr[i] = (int) (arr[i] * (float) (Math.pow(10, max_dp)));
-            System.out.print(int_arr[i] + " ");
+            // System.out.print(int_arr[i] + " ");
         }
 
         return int_arr;
@@ -40,7 +39,7 @@ public class radix_sort_fp {
         float[] arr = new float[int_arr.length];
         for (int i = 0; i < arr.length; i++) {
             arr[i] = (float) (int_arr[i] / (Math.pow(10, max_dp)));
-            System.out.print(arr[i] + " ");
+            // System.out.print(arr[i] + " ");
         }
 
         return arr;
@@ -72,7 +71,7 @@ public class radix_sort_fp {
         return max_index;
     }
 
-    public static void RadixSort(float[] arr) {
+    public static float[] RadixSort(float[] arr) {
 
         int DPNum = NumberOfDP(arr); // Get number of decimal places of longest floating point value in array
 
@@ -145,7 +144,7 @@ public class radix_sort_fp {
             x++;
         }
 
-        arr = IntToFloat(int_arr, DPNum);
+        return IntToFloat(int_arr, DPNum);
 
     }
 
@@ -174,7 +173,7 @@ public class radix_sort_fp {
         // int[] arr = { 573, 25, 415, 12, 161, 6 };
 
         // function call
-        RadixSort(arr);
+        arr = RadixSort(arr);
         printArr(arr);
     }
 }
