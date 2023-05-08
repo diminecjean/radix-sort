@@ -171,6 +171,8 @@ public class radix_sort_fp {
 
         // Function call
         arr = RadixSort(arr); // Sort the array
+
+        System.out.print("Sorted floating point array: ");
         printArr(arr); // Print the array
     }
 }
