@@ -1,5 +1,5 @@
-// Radix Sort - using 2 arrays, based on bucket sort
-// Purpose: Sort a sequence of decimal numbers of integer datatype, in the form of an array
+// Radix Sort for Floating Points - code based on the previous Radix Sort code for Integers
+// Purpose: Sort a sequence of positive decimal numbers of floating point datatype, in the form of an array
 // Programmers: 
 
 import java.util.LinkedList;
@@ -8,7 +8,7 @@ import java.util.*;
 public class radix_sort_fp {
 
     // Get the number of decimal places of the float with
-    // most number of decimal places
+    // most number of decimal places in the array
     static int NumberOfDP(float[] arr) {
         int max_dp = 0;
         for (int i = 0; i < arr.length; i++) {
@@ -27,9 +27,7 @@ public class radix_sort_fp {
         int[] int_arr = new int[arr.length];
         for (int i = 0; i < arr.length; i++) {
             int_arr[i] = (int) (arr[i] * (float) (Math.pow(10, max_dp)));
-            // System.out.print(int_arr[i] + " ");
         }
-
         return int_arr;
     }
 
@@ -39,9 +37,7 @@ public class radix_sort_fp {
         float[] arr = new float[int_arr.length];
         for (int i = 0; i < arr.length; i++) {
             arr[i] = (float) (int_arr[i] / (Math.pow(10, max_dp)));
-            // System.out.print(arr[i] + " ");
         }
-
         return arr;
     }
 
@@ -57,7 +53,7 @@ public class radix_sort_fp {
         return i;
     }
 
-    // Method to get the maximum value of the array
+    // Method to get the maximum value of an integer array
     static int GetMax(int[] arr) {
         int max_value = arr[0];
         int max_index = 0;
@@ -71,14 +67,16 @@ public class radix_sort_fp {
     }
 
     public static float[] RadixSort(float[] arr) {
-
-        int DPNum = NumberOfDP(arr); // Get number of decimal places of longest floating point value in array
+        // Get number of decimal places of the longest
+        // floating point value in the array
+        int DPNum = NumberOfDP(arr);
 
         // Convert the floating point array into integer array
-        // using the method
-
+        // using the defined FloatToInt method
         int[] int_arr = new int[arr.length];
         int_arr = FloatToInt(arr, DPNum);
+
+        // -------------Operations using converted integer array-------------
 
         // Declaring 2 fixed-sized linked lists (size 10) and a
         // placeholder linked list (temp) for 10 decimal places.
@@ -86,14 +84,11 @@ public class radix_sort_fp {
         LinkedList<Integer>[] destination = new LinkedList[10]; // linked list 2
         LinkedList<Integer>[] temp = new LinkedList[10]; // placeholder
 
-        int size = arr.length;
-
+        int size = arr.length; // Get the array length
         int MaxIndex = GetMax(int_arr); // Get index value of maximum value in the array
-        int MaxValue = int_arr[MaxIndex]; // Declare maximum value in the array
-
-        // Get the number of digits in the maximum value
-        // This is to determine the number of loops needed for the sort
-        int num_loop = GetDigits(MaxValue);
+        int MaxValue = int_arr[MaxIndex]; // Get the maximum value
+        int num_loop = GetDigits(MaxValue); // Get the number of digits in the maximum value to determine the number of
+                                            // loops needed
 
         // Creating buckets for each linked list to store pointers
         for (int i = 0; i < 10; i++) {
@@ -115,8 +110,7 @@ public class radix_sort_fp {
         // for the ones place value
         for (int i = 1; i < num_loop; i++) {
             for (int j = 0; j < size; j++) {
-                int x = 0;
-                // x represents the number of buckets
+                int x = 0; // x represents the number of buckets
                 while (x < 10) {
                     // Each bucket may have 0 to n number of linked list
                     while (!source[x].isEmpty()) {
@@ -143,17 +137,21 @@ public class radix_sort_fp {
             x++;
         }
 
-        return IntToFloat(int_arr, DPNum);
+        // -------------End of operations using converted integer array-------------
 
+        // Convert the floating point array into integer array
+        // using the defined IntToFloat method
+        return IntToFloat(int_arr, DPNum);
     }
 
-    // a utility function to print the sorted array
+    // Method to display the sorted array
     static void printArr(float[] arr) {
         for (int i = 0; i < arr.length; i++)
             System.out.print(arr[i] + " ");
         System.out.println();
     }
 
+    // Main Method
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -161,6 +159,7 @@ public class radix_sort_fp {
         int size = sc.nextInt();
         float[] arr = new float[size];
 
+        // Get array input
         for (int i = 0; i < size; i++) {
             System.out.print("Number " + (i + 1) + ": ");
             arr[i] = sc.nextFloat();
@@ -169,10 +168,9 @@ public class radix_sort_fp {
         // Clear the console
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        // int[] arr = { 573, 25, 415, 12, 161, 6 };
 
-        // function call
-        arr = RadixSort(arr);
-        printArr(arr);
+        // Function call
+        arr = RadixSort(arr); // Sort the array
+        printArr(arr); // Print the array
     }
 }
