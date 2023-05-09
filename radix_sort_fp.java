@@ -22,7 +22,9 @@ public class radix_sort_fp {
     }
 
     // Method to convert the floating point numbers into integers
-    // Radix = max_dp
+    // Radix = base of hte number = 10
+    // To convert, the integer is multiplied by the radix to the
+    // power of max_dp
     static int[] FloatToInt(float[] arr, int max_dp) {
         int[] int_arr = new int[arr.length];
         for (int i = 0; i < arr.length; i++) {
@@ -32,7 +34,8 @@ public class radix_sort_fp {
     }
 
     // Method to convert the integers into floating point numbers
-    // Radix = max_dp
+    // To convert, the integer is divided by the radix to the
+    // power of max_dp
     static float[] IntToFloat(int[] int_arr, int max_dp) {
         float[] arr = new float[int_arr.length];
         for (int i = 0; i < arr.length; i++) {
