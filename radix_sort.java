@@ -69,8 +69,7 @@ public class radix_sort {
         // for the ones place value
         for (int i = 1; i < num_loop; i++) {
             for (int j = 0; j < size; j++) {
-                int x = 0;
-                // x represents the number of buckets
+                int x = 0; // x represents the number of buckets
                 while (x < 10) {
                     // Each bucket may have 0 to n number of linked list
                     while (!source[x].isEmpty()) {
@@ -96,16 +95,16 @@ public class radix_sort {
             }
             x++;
         }
-
     }
 
-    // a utility function to print the sorted array
+    // Method to display the sorted array
     static void printArr(int[] arr) {
         for (int i = 0; i < arr.length; i++)
             System.out.print(arr[i] + " ");
         System.out.println();
     }
 
+    // Main Method
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -121,10 +120,11 @@ public class radix_sort {
         // Clear the console
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        // int[] arr = { 573, 25, 415, 12, 161, 6 };
 
-        // function call
-        RadixSort(arr);
-        printArr(arr);
+        // Function call
+        RadixSort(arr); // Sort the array
+
+        System.out.print("Sorted floating point array: ");
+        printArr(arr); // Print the array
     }
 }
