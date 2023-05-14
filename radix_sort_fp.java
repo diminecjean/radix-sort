@@ -1,6 +1,6 @@
 // Radix Sort for Floating Points - code based on the previous Radix Sort code for Integers
 // Purpose: Sort a sequence of positive decimal numbers of floating point datatype, in the form of an array
-// Programmers: 
+// Programmers: Looi Wei En, Lee Ying Hooi, Wong Jia Yi
 
 import java.util.LinkedList;
 import java.util.*;
