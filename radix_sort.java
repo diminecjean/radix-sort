@@ -1,6 +1,6 @@
 // Radix Sort - using 2 arrays, based on bucket sort
 // Purpose: Sort a sequence of decimal numbers of integer datatype, in the form of an array
-// Programmers: 
+// Programmers: Looi Wei En, Lee Ying Hooi, Wong Jia Yi
 
 import java.util.LinkedList;
 import java.util.*;
