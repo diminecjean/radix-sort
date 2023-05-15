@@ -14,13 +14,19 @@ public class radix_sort_fp_analysis {
     // Method to get number of decimal places
     static int NumberOfDP(float[] arr) {
         int max_dp = 0;
+        analysis.counter += 2; // 2 assignments
         for (int i = 0; i < arr.length; i++) {
             String text = Float.toString(Math.abs(arr[i]));
             int integer_places = text.indexOf('.');
             int decimal_places = text.length() - integer_places - 1;
-            if (decimal_places > max_dp)
+            if (decimal_places > max_dp) {
                 max_dp = decimal_places;
+                analysis.counter++; // 1 assignment
+            }
+            analysis.counter += 14; // 2 comparisons, 1 addition, 2 subtractions, 4 assignments, 1 conversion, 3
+                                    // method calls, 1 array access
         }
+        analysis.counter++; // method return
         return max_dp;
     }
 
