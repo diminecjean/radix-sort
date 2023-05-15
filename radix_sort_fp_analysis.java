@@ -33,18 +33,26 @@ public class radix_sort_fp_analysis {
     // Method to convert the floating point numbers into integers
     static int[] FloatToInt(float[] arr, int max_dp) {
         int[] int_arr = new int[arr.length];
+        analysis.counter += 3; // 2 assignment, 1 initialization
         for (int i = 0; i < arr.length; i++) {
             int_arr[i] = (int) (arr[i] * (float) (Math.pow(10, max_dp)));
+            analysis.counter += 9; // 2 assignment, 2 data type castings, 1 multiplication, 1 addition, 1
+                                   // comparison, 1 array access, 1 method call
         }
+        analysis.counter++; // method return
         return int_arr;
     }
 
     // Method to convert the integers into floating point numbers
     static float[] IntToFloat(int[] int_arr, int max_dp) {
         float[] arr = new float[int_arr.length];
+        analysis.counter += 3; // 2 assignment, 1 initialization
         for (int i = 0; i < arr.length; i++) {
             arr[i] = (float) (int_arr[i] / (Math.pow(10, max_dp)));
+            analysis.counter += 9; // 2 assignment, 2 data type castings, 1 multiplication, 1 addition, 1
+                                   // comparison, 1 array access, 1 method call
         }
+        analysis.counter++; // method return
         return arr;
     }
 
@@ -87,6 +95,7 @@ public class radix_sort_fp_analysis {
         int DPNum = NumberOfDP(arr);
         int[] int_arr = new int[arr.length];
         int_arr = FloatToInt(arr, DPNum);
+        analysis.counter += 6; // 3 assignments, 2 method calls, 1 initialization
 
         // -------------Operations using converted integer array-------------
 
@@ -161,6 +170,8 @@ public class radix_sort_fp_analysis {
 
         // Convert the floating point array into integer array
         // using the defined IntToFloat method
+
+        analysis.counter += 2; // 1 method call, 1 method return
         return IntToFloat(int_arr, DPNum);
     }
 
