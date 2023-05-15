@@ -137,7 +137,7 @@ public class radix_sort_analysis {
             int upperbound = 10000;
             int[] arr = new int[i];
             for (int j = 0; j < i; j++) {
-                arr[i] = rand_num.nextInt(upperbound);
+                arr[j] = rand_num.nextInt(upperbound);
             }
             System.out.print("Unsorted: ");
             PrintArr(arr);
@@ -145,7 +145,7 @@ public class radix_sort_analysis {
             System.out.print("Sorted: ");
             PrintArr(arr);
             System.out.println("Number of inputs: " + i);
-            System.out.println("Number of primitive operations: " + analysis.counter + "/n");
+            System.out.println("Number of primitive operations: " + analysis.counter + "\n");
         }
     }
 }
