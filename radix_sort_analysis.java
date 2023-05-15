@@ -22,7 +22,7 @@ public class radix_sort_analysis {
                 max_index = i;
                 analysis.counter += 2; // 2 assignments
             }
-            analysis.counter += 4; // 2 comparisons, 1 addition and 1 assignment
+            analysis.counter += 5; // 2 comparisons, 1 addition, 1 assignment and 1 array access
         }
         analysis.counter++; // method return
         return max_index;
@@ -45,66 +45,87 @@ public class radix_sort_analysis {
         return i;
     }
 
+    // Method Radix Sort
     public static void RadixSort(int[] arr) {
 
-        LinkedList<Integer>[] source = new LinkedList[10]; // linked list 1
-        LinkedList<Integer>[] destination = new LinkedList[10]; // linked list 2
-        LinkedList<Integer>[] temp = new LinkedList[10]; // placeholder
+        LinkedList<Integer>[] source = new LinkedList[10];
+        LinkedList<Integer>[] destination = new LinkedList[10];
+        LinkedList<Integer>[] temp = new LinkedList[10];
+        analysis.counter += 6; // 3 sets of initialization and instantiation of linked list
 
         int size = arr.length;
+        analysis.counter += 2; // access to length property and 1 assignment
 
-        int MaxIndex = GetMax(arr); // Get index value of maximum value in the array
-        int MaxValue = arr[MaxIndex]; // Declare maximum value in the array
-
+        int MaxIndex = GetMax(arr);
+        int MaxValue = arr[MaxIndex];
         int num_loop = GetDigits(MaxValue);
+        analysis.counter += 6; // 3 assignments, 2 method call and 1 array access
 
-        // Creating buckets for each linked list to store pointers
+        analysis.counter++; // 1 assignment
         for (int i = 0; i < 10; i++) {
             source[i] = new LinkedList<Integer>();
             destination[i] = new LinkedList<Integer>();
             temp[i] = new LinkedList<Integer>();
+            analysis.counter += 6; // 3 sets of assignments and instantiation
         }
 
-        // Append the array elements into their respective buckets
+        analysis.counter++; // 1 assignment
         for (int j = 0; j < size; j++) {
             int digit = (int) (arr[j] % 10);
             source[digit].add(arr[j]);
+            analysis.counter += 7; // 1 assignment, 2 array access, 1 modulo operation, 1 integer casting, 1 linked
+                                   // list access and 1 method call
         }
 
+        analysis.counter++; // 1 assignment
         for (int i = 1; i < num_loop; i++) {
+            analysis.counter++; // 1 assignment
             for (int j = 0; j < size; j++) {
-                int x = 0; // x represents the number of buckets
+                int x = 0;
                 while (x < 10) {
+
                     while (!source[x].isEmpty()) {
                         int num = source[x].remove();
                         int digit = (int) (num / Math.pow(10, i)) % 10;
                         destination[digit].add(num);
+                        analysis.counter += 13; // 1 negation, 1 integer casting, 3 linkedlist access, 4 method calls, 1
+                                                // division, 1 modulo operation and 2 assignments
                     }
                     x++;
+                    analysis.counter += 3; // 1 comparison, 1 addition and 1 assignment
                 }
+                analysis.counter++; // 2 assignment, 1 comparison, and 1 addition
             }
-            // Switch the arrays after each round of sorting
             temp = source;
             source = destination;
             destination = temp;
+            analysis.counter += 3; // 3 assignments
         }
 
         int x = 0, y = 0;
-        // Write back the sorted elements into the array
+        analysis.counter += 2; // 2 assignments
         while (x < 10) {
             while (!source[x].isEmpty()) {
                 arr[y] = source[x].remove();
                 y++;
+                analysis.counter += 9; // 2 linkedlist access, 1 array access, 2 method calls, 1 negation, 1 addition
+                                       // and 2 assignment
             }
             x++;
+            analysis.counter += 3; // 1 comparison, 1 addition and 1 assignment
         }
     }
 
     // Method to display the sorted array
     static void printArr(int[] arr) {
-        for (int i = 0; i < arr.length; i++)
+        analysis.counter++; // 1 assignment
+        for (int i = 0; i < arr.length; i++) {
             System.out.print(arr[i] + " ");
+            analysis.counter += 6; // 1 array access, 1 concatenation, 1 print, 1 comparrison, 1 addition and 1
+                                   // assignment
+        }
         System.out.println();
+        analysis.counter++; // 1 print
     }
 
     // Main Method
@@ -120,15 +141,13 @@ public class radix_sort_analysis {
             arr[i] = sc.nextInt();
         }
 
-        // Clear the console
         System.out.print("\033[H\033[2J");
         System.out.flush();
 
-        // Function call
-        RadixSort(arr); // Sort the array
+        RadixSort(arr);
 
         System.out.print("Sorted floating point array: ");
-        printArr(arr); // Print the array
+        printArr(arr);
 
         System.out.print("Number of primitive operations: " + analysis.counter);
     }
