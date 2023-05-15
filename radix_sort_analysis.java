@@ -117,7 +117,7 @@ public class radix_sort_analysis {
     }
 
     // Method to display the sorted array
-    static void printArr(int[] arr) {
+    static void PrintArr(int[] arr) {
         analysis.counter++; // 1 assignment
         for (int i = 0; i < arr.length; i++) {
             System.out.print(arr[i] + " ");
@@ -130,25 +130,22 @@ public class radix_sort_analysis {
 
     // Main Method
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        int iteration = 5;
 
-        System.out.print("Number of integers to sort: ");
-        int size = sc.nextInt();
-        int[] arr = new int[size];
-
-        for (int i = 0; i < size; i++) {
-            System.out.print("Integer " + (i + 1) + ": ");
-            arr[i] = sc.nextInt();
+        for (int i = 3; i < iteration * 3; i += 3) {
+            Random rand_num = new Random();
+            int upperbound = 10000;
+            int[] arr = new int[i];
+            for (int j = 0; j < i; j++) {
+                arr[i] = rand_num.nextInt(upperbound);
+            }
+            System.out.print("Unsorted: ");
+            PrintArr(arr);
+            RadixSort(arr);
+            System.out.print("Sorted: ");
+            PrintArr(arr);
+            System.out.println("Number of inputs: " + i);
+            System.out.println("Number of primitive operations: " + analysis.counter + "/n");
         }
-
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-
-        RadixSort(arr);
-
-        System.out.print("Sorted floating point array: ");
-        printArr(arr);
-
-        System.out.print("Number of primitive operations: " + analysis.counter);
     }
 }
