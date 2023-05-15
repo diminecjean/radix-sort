@@ -5,37 +5,48 @@
 import java.util.LinkedList;
 import java.util.*;
 
+class analysis {
+    public static int counter = 0;
+}
+
 public class radix_sort_analysis {
 
     // Method to get the maximum value of the array
     static int GetMax(int[] arr) {
         int max_value = arr[0];
         int max_index = 0;
+        analysis.counter += 3; // 3 assignments
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] > max_value) {
                 max_value = arr[i];
                 max_index = i;
+                analysis.counter += 2; // 2 assignments
             }
+            analysis.counter += 4; // 2 comparisons, 1 addition and 1 assignment
         }
+        analysis.counter++; // method return
         return max_index;
     }
 
     // Method to get the number of digits of a number
     static int GetDigits(int number) {
         int i = 1;
-        if (number < 10)
+        analysis.counter += 2; // 1 assignment and 1 comparison
+        if (number < 10) {
             i = 1;
-        else {
-            while (number > Math.pow(10, i))
+            analysis.counter++; // 1 assignment
+        } else {
+            while (number > Math.pow(10, i)) {
                 i++;
+                analysis.counter += 4; // 1 comparison, 1 method call, 1 addition and 1 assignment
+            }
         }
+        analysis.counter++; // method return
         return i;
     }
 
     public static void RadixSort(int[] arr) {
 
-        // Declaring 2 fixed-sized linked lists (size 10) and a
-        // placeholder linked list (temp) for 10 decimal places.
         LinkedList<Integer>[] source = new LinkedList[10]; // linked list 1
         LinkedList<Integer>[] destination = new LinkedList[10]; // linked list 2
         LinkedList<Integer>[] temp = new LinkedList[10]; // placeholder
@@ -45,8 +56,6 @@ public class radix_sort_analysis {
         int MaxIndex = GetMax(arr); // Get index value of maximum value in the array
         int MaxValue = arr[MaxIndex]; // Declare maximum value in the array
 
-        // Get the number of digits in the maximum value
-        // This is to determine the number of loops needed for the sort
         int num_loop = GetDigits(MaxValue);
 
         // Creating buckets for each linked list to store pointers
@@ -56,22 +65,16 @@ public class radix_sort_analysis {
             temp[i] = new LinkedList<Integer>();
         }
 
-        // Append the array elements into their respective buckets in the source
-        // linked list based on the digit value of ones place value
+        // Append the array elements into their respective buckets
         for (int j = 0; j < size; j++) {
             int digit = (int) (arr[j] % 10);
             source[digit].add(arr[j]);
         }
 
-        // Number of iterations of the outer loop is based on the
-        // number of digits of the maximum value in the input array
-        // i starts from 1 as the sequence has already been sorted once
-        // for the ones place value
         for (int i = 1; i < num_loop; i++) {
             for (int j = 0; j < size; j++) {
                 int x = 0; // x represents the number of buckets
                 while (x < 10) {
-                    // Each bucket may have 0 to n number of linked list
                     while (!source[x].isEmpty()) {
                         int num = source[x].remove();
                         int digit = (int) (num / Math.pow(10, i)) % 10;
@@ -126,5 +129,7 @@ public class radix_sort_analysis {
 
         System.out.print("Sorted floating point array: ");
         printArr(arr); // Print the array
+
+        System.out.print("Number of primitive operations: " + analysis.counter);
     }
 }
