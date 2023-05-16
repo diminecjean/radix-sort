@@ -130,22 +130,28 @@ public class radix_sort_analysis {
 
     // Main Method
     public static void main(String[] args) {
-        int iteration = 5;
+        int iteration = 1000;
+        long startTime = System.nanoTime();
 
         for (int i = 3; i < iteration * 3; i += 3) {
             Random rand_num = new Random();
-            int upperbound = 10000;
+            int upperbound = 100;
             int[] arr = new int[i];
             for (int j = 0; j < i; j++) {
                 arr[j] = rand_num.nextInt(upperbound);
             }
-            System.out.print("Unsorted: ");
-            PrintArr(arr);
+            // System.out.print("Unsorted: ");
+            // PrintArr(arr);
             RadixSort(arr);
-            System.out.print("Sorted: ");
-            PrintArr(arr);
-            System.out.println("Number of inputs: " + i);
-            System.out.println("Number of primitive operations: " + analysis.counter + "\n");
+            // System.out.print("Sorted: ");
+            // PrintArr(arr);
+            // System.out.println("Number of inputs: " + i);
+            // System.out.println("Number of primitive operations: " + analysis.counter +
+            // "\n");
+            long endTime = System.nanoTime();
+            long elapsed = endTime - startTime;
+            System.out.println(elapsed);
+            // System.out.println(analysis.counter);
         }
     }
 }
