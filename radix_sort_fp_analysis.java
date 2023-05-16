@@ -190,6 +190,7 @@ public class radix_sort_fp_analysis {
     // Main Method
     public static void main(String[] args) {
         int iteration = 1000;
+        long startTime = System.nanoTime();
 
         for (int i = 3; i < iteration * 3; i += 3) {
             Random rand_num = new Random();
@@ -201,11 +202,14 @@ public class radix_sort_fp_analysis {
             // System.out.print("Unsorted: ");
             // PrintArr(arr);
             arr = RadixSort(arr);
-            System.out.print("Sorted: ");
-            PrintArr(arr);
-            System.out.println("Number of inputs: " + i);
-            System.out.println("Number of primitive operations: " + analysis.counter +
-                    "\n");
+            // System.out.print("Sorted: ");
+            // PrintArr(arr);
+            // System.out.println(i);
+            // System.out.println("Number of primitive operations: " + analysis.counter +
+            // "\n");
+            long endTime = System.nanoTime();
+            long elapsed = endTime - startTime;
+            System.out.println(elapsed);
             // System.out.println(analysis.counter);
         }
     }
