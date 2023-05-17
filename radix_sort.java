@@ -98,7 +98,7 @@ public class radix_sort {
     }
 
     // Method to display the sorted array
-    static void printArr(int[] arr) {
+    static void PrintArr(int[] arr) {
         for (int i = 0; i < arr.length; i++)
             System.out.print(arr[i] + " ");
         System.out.println();
@@ -124,7 +124,7 @@ public class radix_sort {
         // Function call
         RadixSort(arr); // Sort the array
 
-        System.out.print("Sorted floating point array: ");
-        printArr(arr); // Print the array
+        System.out.print("Sorted integer array: ");
+        PrintArr(arr); // Print the array
     }
 }
