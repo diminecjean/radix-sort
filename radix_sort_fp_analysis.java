@@ -190,11 +190,11 @@ public class radix_sort_fp_analysis {
     // Main Method
     public static void main(String[] args) {
         int iteration = 1000;
-        long startTime = System.nanoTime();
+        // long startTime = System.nanoTime();
 
         for (int i = 3; i < iteration * 3; i += 3) {
             Random rand_num = new Random();
-            float upperbound = 10000;
+            float upperbound = 100;
             float[] arr = new float[i];
             for (int j = 0; j < i; j++) {
                 arr[j] = rand_num.nextFloat(upperbound);
@@ -207,10 +207,11 @@ public class radix_sort_fp_analysis {
             // System.out.println(i);
             // System.out.println("Number of primitive operations: " + analysis.counter +
             // "\n");
-            long endTime = System.nanoTime();
-            long elapsed = endTime - startTime;
-            System.out.println(elapsed);
-            // System.out.println(analysis.counter);
+            // long endTime = System.nanoTime();
+            // long elapsed = endTime - startTime;
+            // System.out.println(elapsed);
+            System.out.println(analysis.counter);
+            analysis.counter = 0;
         }
     }
 }
